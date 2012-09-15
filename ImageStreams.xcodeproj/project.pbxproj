@@ -33,6 +33,7 @@
 		4263431915FA67D500977AF9 /* png.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = png.hpp; sourceTree = "<group>"; };
 		4263431A15FA686300977AF9 /* basics.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = basics.hpp; sourceTree = "<group>"; };
 		4263431B15FA6A3200977AF9 /* libpng.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libpng.framework; path = Library/Frameworks/libpng.framework; sourceTree = SDKROOT; };
+		4263431D1604A79F00977AF9 /* jpg.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = jpg.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +73,7 @@
 				4263431A15FA686300977AF9 /* basics.hpp */,
 				4263431815FA679600977AF9 /* bmp.hpp */,
 				4263431915FA67D500977AF9 /* png.hpp */,
+				4263431D1604A79F00977AF9 /* jpg.hpp */,
 			);
 			path = ImageStreams;
 			sourceTree = "<group>";

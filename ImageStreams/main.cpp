@@ -91,9 +91,26 @@ void logistic(std::string filename) {
 	
 	ImageType image(size, size, filename);
 	for(int i = 0; i < size*size; ++i){
-		double c = start + i * (end - start) / (size*size);
+		double c = start + i * (end - start) / double(size*size - 1);
 		// I know; the order of evaluation is implementation defined
 		image << typename ImageType::pixel(x = logistic_step(x, c), x = logistic_step(x, c), x = logistic_step(x, c));
+	}
+}
+
+template <typename ImageType>
+void logistic2(std::string filename) {
+	size_t width = 1280;
+	size_t height = 800;
+	double start = 3.847;
+	double end = 3.9;
+	
+	ImageType image(width, height, filename);
+	for(int y = 0; y < height; ++y){
+		double z = 0.5 * y / double(height - 1);
+		for(int x = 0; x < width; ++x){
+			double c = start + x * (end - start) / double(width - 1);
+			image << typename ImageType::pixel(z = logistic_step(z, c), z = logistic_step(z, c), z = logistic_step(z, c));
+		}
 	}
 }
 
@@ -112,5 +129,8 @@ int main(int argc, const char * argv[]){
 	
 	logistic<png::colored_ostream>("logistic.png");
 	logistic<bmp::colored_ostream>("logistic.bmp");
+	
+	logistic2<png::colored_ostream>("logistic2.png");
+	logistic2<bmp::colored_ostream>("logistic2.bmp");
 }
 
