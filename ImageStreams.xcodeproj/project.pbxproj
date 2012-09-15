@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4263431015FA676F00977AF9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4263430F15FA676F00977AF9 /* main.cpp */; };
 		4263431215FA676F00977AF9 /* ImageStreams.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4263431115FA676F00977AF9 /* ImageStreams.1 */; };
+		4263431C15FA6A3200977AF9 /* libpng.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4263431B15FA6A3200977AF9 /* libpng.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,10 @@
 		4263430B15FA676F00977AF9 /* ImageStreams */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ImageStreams; sourceTree = BUILT_PRODUCTS_DIR; };
 		4263430F15FA676F00977AF9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		4263431115FA676F00977AF9 /* ImageStreams.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = ImageStreams.1; sourceTree = "<group>"; };
+		4263431815FA679600977AF9 /* bmp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = bmp.hpp; sourceTree = "<group>"; };
+		4263431915FA67D500977AF9 /* png.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = png.hpp; sourceTree = "<group>"; };
+		4263431A15FA686300977AF9 /* basics.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = basics.hpp; sourceTree = "<group>"; };
+		4263431B15FA6A3200977AF9 /* libpng.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libpng.framework; path = Library/Frameworks/libpng.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4263431C15FA6A3200977AF9 /* libpng.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +50,7 @@
 		4263430015FA676F00977AF9 = {
 			isa = PBXGroup;
 			children = (
+				4263431B15FA6A3200977AF9 /* libpng.framework */,
 				4263430E15FA676F00977AF9 /* ImageStreams */,
 				4263430C15FA676F00977AF9 /* Products */,
 			);
@@ -62,6 +69,9 @@
 			children = (
 				4263430F15FA676F00977AF9 /* main.cpp */,
 				4263431115FA676F00977AF9 /* ImageStreams.1 */,
+				4263431A15FA686300977AF9 /* basics.hpp */,
+				4263431815FA679600977AF9 /* bmp.hpp */,
+				4263431915FA67D500977AF9 /* png.hpp */,
 			);
 			path = ImageStreams;
 			sourceTree = "<group>";
@@ -129,6 +139,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -155,6 +167,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
