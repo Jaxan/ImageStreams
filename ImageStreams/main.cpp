@@ -65,7 +65,7 @@ void automata(std::string filename){
 	std::vector<int> r1(width, 0);
 	std::vector<int> r2(width, 0);
 	
-	r1[width/2] = 1;
+	r1[width/3] = 1;
 	
 	ImageType image(width, height, filename);
 	for(int y = 0; y < height; ++y){
@@ -75,6 +75,25 @@ void automata(std::string filename){
 		for(int x = 1; x < width-1; ++x){
 			r1[x] = (r2[x-1] || r2[x] || r2[x+1]) && !(r2[x-1] && r2[x] && r2[x+1]);
 		}
+	}
+}
+
+inline double logistic_step(double in, double c){
+	return c * in * (1.0 - in);
+}
+
+template <typename ImageType>
+void logistic(std::string filename) {
+	size_t size = 800;
+	double x = 0.5;
+	double start = 3.7;
+	double end = 4.0;
+	
+	ImageType image(size, size, filename);
+	for(int i = 0; i < size*size; ++i){
+		double c = start + i * (end - start) / (size*size);
+		// I know; the order of evaluation is implementation defined
+		image << typename ImageType::pixel(x = logistic_step(x, c), x = logistic_step(x, c), x = logistic_step(x, c));
 	}
 }
 
@@ -90,5 +109,8 @@ int main(int argc, const char * argv[]){
 	
 	automata<png::gray_ostream>("automata.png");
 	automata<bmp::gray_ostream>("automata.bmp");
+	
+	logistic<png::colored_ostream>("logistic.png");
+	logistic<bmp::colored_ostream>("logistic.bmp");
 }
 
