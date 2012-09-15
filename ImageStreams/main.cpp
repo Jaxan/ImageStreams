@@ -10,11 +10,20 @@
 
 #include "png.hpp"
 #include "bmp.hpp"
+#include "jpg.hpp"
 #include "basics.hpp"
 
 #include <cmath>
 #include <vector>
+#include <array>
 #include <algorithm>
+
+template <typename ImageType>
+void basic_colors(std::string filename) {
+	ImageType image(8, 1, filename);
+	std::array<double, 2> v = {0.0, 1.0};
+	for(auto b : v) for(auto g : v) for(auto r : v) image << typename ImageType::pixel(r,g,b);
+}
 
 template <typename ImageType>
 void xor_color(std::string filename){
@@ -142,25 +151,22 @@ void mandelbrot(std::string filename) {
 }
 
 int main(int argc, const char * argv[]){
-	xor_color<png::colored_ostream>("xor_color.png");
-	xor_color<bmp::colored_ostream>("xor_color.bmp");
+	#define test(fun, kind) \
+	std::cout << "Testing " #fun << std::endl; \
+	fun<png::kind ## _ostream>(#fun ".png"); \
+	fun<bmp::kind ## _ostream>(#fun ".bmp"); \
+	fun<jpg::kind ## _ostream>(#fun ".jpg")
+
+	test(basic_colors, colored);
+	test(xor_color, colored);
+	test(logistic, colored);
+	test(logistic2, colored);
 	
-	xor_grad<png::gray_ostream>("xor_grad.png");
-	xor_grad<bmp::gray_ostream>("xor_grad.bmp");
+	test(noise, gray);
+	test(xor_grad, gray);
+	test(automata, gray);
+	test(mandelbrot, gray);
 	
-	noise<png::gray_ostream>("noise.png");
-	noise<bmp::gray_ostream>("noise.bmp");
-	
-	automata<png::gray_ostream>("automata.png");
-	automata<bmp::gray_ostream>("automata.bmp");
-	
-	logistic<png::colored_ostream>("logistic.png");
-	logistic<bmp::colored_ostream>("logistic.bmp");
-	
-	logistic2<png::colored_ostream>("logistic2.png");
-	logistic2<bmp::colored_ostream>("logistic2.bmp");
-	
-	mandelbrot<png::gray_ostream>("mandelbrot.png");
-	mandelbrot<bmp::gray_ostream>("mandelbrot.bmp");
+	#undef test
 }
 

@@ -21,6 +21,15 @@
  */
 
 namespace jpg{
+	template <typename P>
+	J_COLOR_SPACE color_space(){
+		int num_colors = pixel_formats::traits<P>::num_colors;
+		switch (num_colors) {
+			case 1: return JCS_GRAYSCALE;
+			case 3: return JCS_RGB;
+			default: return JCS_UNKNOWN;
+		}
+	}
 	
 	template <typename P = pixel_formats::rgb>
 	struct ostream{
@@ -47,10 +56,10 @@ namespace jpg{
 			cinfo.image_width      = width;
 			cinfo.image_height     = height;
 			cinfo.input_components = pixel_formats::traits<pixel>::num_colors;
-			//cinfo.in_color_space   = JCS_RGB;	// or JCS_GRAYSCALE, will be set in jpeg_set_defaults()
+			cinfo.in_color_space   = color_space<pixel>();
 			
 			jpeg_set_defaults(&cinfo);
-			//jpeg_set_quality(&cinfo, 75, true);	// quality in [0, 100], boolean indicates "force_baseline" (only matters when quality < 25)
+			jpeg_set_quality(&cinfo, 95, true);	// quality in [0, 100], boolean indicates "force_baseline" (only matters when quality < 25)
 			jpeg_start_compress(&cinfo, true);	// true means we will write completely
 		}
 		
@@ -65,7 +74,8 @@ namespace jpg{
 			++x;
 			if(x >= row.size()){
 				// this will return the number of scanlines written
-				jpeg_write_scanlines(&cinfo, reinterpret_cast<unsigned char const*>(row.data()), 1);
+				unsigned char * ptr = reinterpret_cast<unsigned char *>(row.data());
+				jpeg_write_scanlines(&cinfo, &ptr, 1);
 				x = 0;
 			}
 			
