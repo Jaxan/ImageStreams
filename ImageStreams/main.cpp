@@ -114,6 +114,33 @@ void logistic2(std::string filename) {
 	}
 }
 
+inline int mandelbrot_thing(double const x, double const y){
+	double zx = 0.0, zy = 0.0;
+	for(int i = 0; i < 255; ++i){
+		double t = zx;
+		zx = zx*zx - zy*zy + x;
+		zy = 2.0 * t * zy + y;
+		
+		if(zx*zx + zy*zy > 100) return 10*i;
+	}
+	return 0;
+}
+
+template <typename ImageType>
+void mandelbrot(std::string filename) {
+	size_t width = 1280;
+	size_t height = 800;
+	
+	ImageType image(width, height, filename);
+	for(int y = 0; y < height; ++y){
+		double dy = y / double(height - 1) * 2.0 - 1.0;
+		for(int x = 0; x < width; ++x){
+			double dx = x / double(width - 1) * 2.0 * (width/double(height)) - 2.5;
+			image << typename ImageType::pixel(mandelbrot_thing(dx, dy));
+		}
+	}
+}
+
 int main(int argc, const char * argv[]){
 	xor_color<png::colored_ostream>("xor_color.png");
 	xor_color<bmp::colored_ostream>("xor_color.bmp");
@@ -132,5 +159,8 @@ int main(int argc, const char * argv[]){
 	
 	logistic2<png::colored_ostream>("logistic2.png");
 	logistic2<bmp::colored_ostream>("logistic2.bmp");
+	
+	mandelbrot<png::gray_ostream>("mandelbrot.png");
+	mandelbrot<bmp::gray_ostream>("mandelbrot.bmp");
 }
 
