@@ -29,14 +29,14 @@ namespace png{
 	}
 	
 	template <typename P = pixel_formats::rgb>
-	struct png_stream{
+	struct ostream{
 		typedef P pixel;
 		
-		png_stream() = delete;
-		png_stream(png_stream const &) = delete;
-		png_stream & operator=(png_stream const &) = delete;
+		ostream() = delete;
+		ostream(ostream const &) = delete;
+		ostream & operator=(ostream const &) = delete;
 		
-		png_stream(uint32_t width, uint32_t height, std::string filename)
+		ostream(uint32_t width, uint32_t height, std::string filename)
 		: fp(0)
 		, png_ptr(0)
 		, info_ptr(0)
@@ -61,14 +61,14 @@ namespace png{
 			png_write_info(png_ptr, info_ptr);
 		}
 		
-		~png_stream(){
+		~ostream(){
 			// NOTE: the pnglib already checks for us whether all pixels are written
 			png_write_end(png_ptr, info_ptr);
 			png_destroy_info_struct(png_ptr, &info_ptr);
 			fclose(fp);
 		}
 		
-		png_stream& operator<<(pixel const & p){
+		ostream& operator<<(pixel const & p){
 			row[x] = p;
 			++x;
 			if(x >= row.size()){
@@ -87,6 +87,9 @@ namespace png{
 		std::vector<pixel> row;
 		uint32_t x;
 	};
+	
+	typedef ostream<> colored_ostream;
+	typedef ostream<pixel_formats::gray> gray_ostream;
 }
 
 #endif

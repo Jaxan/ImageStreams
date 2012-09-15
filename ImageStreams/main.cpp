@@ -17,7 +17,7 @@
 #include <algorithm>
 
 template <typename ImageType>
-void test(std::string filename){
+void xor_color(std::string filename){
 	size_t size = 512;
 	ImageType image(size, size, filename);
 	
@@ -29,7 +29,7 @@ void test(std::string filename){
 }
 
 template <typename ImageType>
-void test2(std::string filename){
+void xor_grad(std::string filename){
 	size_t size = 256;
 	ImageType image(size, size, filename);
 	
@@ -48,7 +48,7 @@ inline double nice_rand(){
 }
 
 template <typename ImageType>
-void test3(std::string filename){
+void noise(std::string filename){
 	size_t size = 256;
 	
 	ImageType image(size, size, filename);
@@ -58,7 +58,7 @@ void test3(std::string filename){
 }
 
 template <typename ImageType>
-void test4(std::string filename){
+void automata(std::string filename){
 	size_t width = 1024;
 	size_t height = 768;
 	
@@ -79,16 +79,16 @@ void test4(std::string filename){
 }
 
 int main(int argc, const char * argv[]){
-	test<png::png_stream<>>("test.png");
-	test<bmp::bitmap_stream<>>("test.bmp");
+	xor_color<png::colored_ostream>("xor_color.png");
+	xor_color<bmp::colored_ostream>("xor_color.bmp");
 	
-	test2<png::png_stream<pixel_formats::gray>>("test_gray.png");
-	test2<bmp::bitmap_stream<pixel_formats::gray>>("test_gray.bmp");
+	xor_grad<png::gray_ostream>("xor_grad.png");
+	xor_grad<bmp::gray_ostream>("xor_grad.bmp");
 	
-	test3<png::png_stream<pixel_formats::gray>>("test_3.png");
-	test3<bmp::bitmap_stream<pixel_formats::gray>>("test_3.bmp");
+	noise<png::gray_ostream>("noise.png");
+	noise<bmp::gray_ostream>("noise.bmp");
 	
-	test4<png::png_stream<pixel_formats::gray>>("test_4.png");
-	test4<bmp::bitmap_stream<pixel_formats::gray>>("test_4.bmp");
+	automata<png::gray_ostream>("automata.png");
+	automata<bmp::gray_ostream>("automata.bmp");
 }
 

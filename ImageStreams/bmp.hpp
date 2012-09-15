@@ -97,18 +97,18 @@ namespace bmp {
 	{};
 	
 	template <typename P = pixel_formats::bgr, typename CT = default_color_table<P>>
-	struct bitmap_stream {
+	struct ostream {
 		typedef P pixel;
 		typedef CT color_table;
 		
-		bitmap_stream() = delete;
-		bitmap_stream(bitmap_stream const &) = delete;
-		bitmap_stream & operator=(bitmap_stream const &) = delete;
+		ostream() = delete;
+		ostream(ostream const &) = delete;
+		ostream & operator=(ostream const &) = delete;
 		
 		// TODO: make this template on class level?
 		// You can't use them in a ctor without template argument deduction...
 		template <typename DIBT = bitmapcoreheader>
-		bitmap_stream(uint16_t width, uint16_t height, std::string filename)
+		ostream(uint16_t width, uint16_t height, std::string filename)
 		: file(filename.c_str())
 		, width(width)
 		, height(height)
@@ -126,7 +126,7 @@ namespace bmp {
 			ct.write(file);
 		}
 		
-		bitmap_stream& operator<<(pixel const & p){
+		ostream& operator<<(pixel const & p){
 			if (y >= height) throw std::out_of_range("Writing BMP image out of bounds.");
 			
 			file.write((char const *)&p, sizeof(pixel));
@@ -149,6 +149,9 @@ namespace bmp {
 		uint16_t x;
 		uint16_t y;
 	};
+	
+	typedef ostream<> colored_ostream;
+	typedef ostream<pixel_formats::gray> gray_ostream;
 }
 
 #endif
