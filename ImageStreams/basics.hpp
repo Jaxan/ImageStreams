@@ -18,6 +18,9 @@
 	p(int v)
 	p(double v)
  
+ The order in the ctor is rgb even though the internal structure may be
+ different
+ 
  It should be trivially writable with memcpy (TODO: check exact requirement)
  
  Furthermore it should have a static constexpr size_t num_colors indicating the
@@ -30,35 +33,35 @@ namespace pixel_formats {
 		return std::min(255, std::max(0, n));
 	}
 	
-	struct Gray {
+	struct gray {
 		static constexpr size_t num_colors = 1;
 		static constexpr size_t bits_per_color = 8;
 		
-		Gray() : value(0) {}
-		Gray(double intensity) : value(clamp(255*intensity)) {}
-		Gray(int intensity) : value(clamp(intensity)) {}
+		gray() : value(0) {}
+		gray(double intensity) : value(clamp(255*intensity)) {}
+		gray(int intensity) : value(clamp(intensity)) {}
 		
 	private:
 		uint8_t value;
 	};
 	
-	struct RGB {
+	struct rgb {
 		static constexpr size_t num_colors = 3;
 		static constexpr size_t bits_per_color = 8;
 		
-		RGB()
+		rgb()
 		: red(0)
 		, green(0)
 		, blue(0)
 		{}
 		
-		RGB(double red, double green, double blue)
+		rgb(double red, double green, double blue)
 		: red(clamp(255*red))
 		, green(clamp(255*green))
 		, blue(clamp(255*blue))
 		{}
 		
-		RGB(int red, int green, int blue)
+		rgb(int red, int green, int blue)
 		: red(clamp(red))
 		, green(clamp(green))
 		, blue(clamp(blue))
@@ -70,23 +73,23 @@ namespace pixel_formats {
 		uint8_t blue;
 	};
 	
-	struct BGR{
+	struct bgr{
 		static constexpr size_t num_colors = 3;
 		static constexpr size_t bits_per_color = 8;
 		
-		BGR()
+		bgr()
 		: blue(0)
 		, green(0)
 		, red(0)
 		{}
 		
-		BGR(double red, double green, double blue)
+		bgr(double red, double green, double blue)
 		: blue(clamp(255*blue))
 		, green(clamp(255*green))
 		, red(clamp(255*red))
 		{}
 		
-		BGR(int red, int green, int blue)
+		bgr(int red, int green, int blue)
 		: blue(clamp(blue))
 		, green(clamp(green))
 		, red(clamp(red))

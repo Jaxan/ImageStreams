@@ -28,7 +28,7 @@ namespace png{
 		}
 	}
 	
-	template <typename P = pixel_formats::RGB>
+	template <typename P = pixel_formats::rgb>
 	struct png_stream{
 		typedef P pixel;
 		

@@ -15,6 +15,10 @@
 #include <algorithm>
 #include "basics.hpp"
 
+/*
+ Note that a bmp file is vertically flipped.
+ */
+
 namespace bmp {
 	// file header
 	struct bitmap_file_header {
@@ -92,7 +96,7 @@ namespace bmp {
 	struct default_color_table : public std::conditional<pixel_formats::traits<P>::bits_per_pixel <= 8, gray_color_table<pixel_formats::traits<P>::bits_per_pixel>, no_color_table>::type
 	{};
 	
-	template <typename P = pixel_formats::BGR, typename CT = default_color_table<P>>
+	template <typename P = pixel_formats::bgr, typename CT = default_color_table<P>>
 	struct bitmap_stream {
 		typedef P pixel;
 		typedef CT color_table;
