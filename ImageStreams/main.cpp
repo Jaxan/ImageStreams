@@ -57,6 +57,27 @@ void test3(std::string filename){
 		image << typename ImageType::pixel(nice_rand());
 }
 
+template <typename ImageType>
+void test4(std::string filename){
+	size_t width = 1024;
+	size_t height = 768;
+	
+	std::vector<int> r1(width, 0);
+	std::vector<int> r2(width, 0);
+	
+	r1[width/2] = 1;
+	
+	ImageType image(width, height, filename);
+	for(int y = 0; y < height; ++y){
+		for(auto x : r1) image << typename ImageType::pixel((double)x);
+		
+		r1.swap(r2);
+		for(int x = 1; x < width-1; ++x){
+			r1[x] = (r2[x-1] || r2[x] || r2[x+1]) && !(r2[x-1] && r2[x] && r2[x+1]);
+		}
+	}
+}
+
 int main(int argc, const char * argv[]){
 	test<png::png_stream<>>("test.png");
 	test<bmp::bitmap_stream<>>("test.bmp");
@@ -66,5 +87,8 @@ int main(int argc, const char * argv[]){
 	
 	test3<png::png_stream<pixel_formats::gray>>("test_3.png");
 	test3<bmp::bitmap_stream<pixel_formats::gray>>("test_3.bmp");
+	
+	test4<png::png_stream<pixel_formats::gray>>("test_4.png");
+	test4<bmp::bitmap_stream<pixel_formats::gray>>("test_4.bmp");
 }
 
