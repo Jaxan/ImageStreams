@@ -28,6 +28,9 @@
  number of bits per color (TODO: what to do with encodings like 565 ?)
  */
 
+#include <cstdint>
+#include <algorithm>
+
 namespace pixel_formats {
 	inline uint8_t clamp(int n){
 		return std::min(255, std::max(0, n));

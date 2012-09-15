@@ -9,7 +9,7 @@
 #ifndef ImageStreams_jpg_hpp
 #define ImageStreams_jpg_hpp
 
-#include <stdio.h>
+#include <cstdio>
 #include <stdexcept>
 #include <vector>
 #include <jpeglib.h>

@@ -12,7 +12,7 @@
 #include <ostream>
 #include <fstream>
 #include <stdexcept>
-#include <algorithm>
+#include <type_traits>
 #include "basics.hpp"
 
 /*

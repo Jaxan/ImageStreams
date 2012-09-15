@@ -9,7 +9,7 @@
 #ifndef ImageStreams_png_hpp
 #define ImageStreams_png_hpp
 
-#include <stdio.h>
+#include <cstdio>
 #include <stdexcept>
 #include <vector>
 #include <png.h>

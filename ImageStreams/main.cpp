@@ -7,16 +7,12 @@
 //
 
 #include <iostream>
+#include <cstdlib>
+#include <array>
 
 #include "png.hpp"
 #include "bmp.hpp"
 #include "jpg.hpp"
-#include "basics.hpp"
-
-#include <cmath>
-#include <vector>
-#include <array>
-#include <algorithm>
 
 template <typename ImageType>
 void basic_colors(std::string filename) {
