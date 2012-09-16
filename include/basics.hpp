@@ -21,7 +21,7 @@
  The order in the ctor is rgb even though the internal structure may be
  different
  
- It should be trivially writable with memcpy (TODO: check exact requirement)
+ It should be trivially copyable (for memcpy).
  
  Furthermore it should have a static constexpr size_t num_colors indicating the
  number of colors and a static constexpr size_t bit_per_color indicating the

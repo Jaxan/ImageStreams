@@ -33,6 +33,7 @@ For the png format libpng is required. For the jpg format libjpeg or libjpeg-tur
 TODO
 ----
 * Make output iterators
+* Input streams (plus iterators)
 * Add alpha support (where possible)
 * Some interface for parameters (eg. jpg quality)
 * Add appropriate license
